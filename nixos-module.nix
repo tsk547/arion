@@ -39,7 +39,8 @@ let
         environment.ARION_PREBUILT = config.settings.out.dockerComposeYaml;
         script = ''
           echo 1>&2 "docker compose file: $ARION_PREBUILT"
-          arion --prebuilt-file "$ARION_PREBUILT" up
+          arion --prebuilt-file "$ARION_PREBUILT" pull 
+          arion --prebuilt-file "$ARION_PREBUILT" up --pull=always
         '';
       };
     };
