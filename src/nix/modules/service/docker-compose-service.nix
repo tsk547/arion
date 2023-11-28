@@ -322,6 +322,11 @@ in
         ${serviceRef "cap_drop"}
       '';
     };
+    service.runtime = mkOption {
+      type = nullOr str;
+      default = null;
+      description = serviceRef "runtime";
+    };
   };
 
   config.out.service = {
@@ -388,5 +393,7 @@ in
     inherit (config.service) working_dir;
   } // lib.optionalAttrs (config.service.user != null) {
     inherit (config.service) user;
+  } // lib.optionalAttrs (config.service.runtime != null) {
+    inherit (config.service) runtime;
   };
 }
