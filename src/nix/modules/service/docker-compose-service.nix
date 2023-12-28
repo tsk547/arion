@@ -391,6 +391,8 @@ in
     inherit (config.service) devices;
   } // lib.optionalAttrs (config.service.entrypoint != null) {
     inherit (config.service) entrypoint;
+  } // lib.optionalAttrs (config.service.deploy != null) {
+    inherit (config.service) deploy;
   } // lib.optionalAttrs (config.service.env_file != []) {
     inherit (config.service) env_file;
   } // lib.optionalAttrs (config.service.expose != []) {
