@@ -115,6 +115,42 @@ in
          default = [];
          description = serviceRef "depends_on";
        };
+    # deploy.resources.reservations
+    service.deploy = mkOption {
+      description = serviceRef "deploy";
+      type = submodule ({ config, options, ...}: {
+        _out = mkOption {
+          internal = true;
+          default = {
+            inherit (config) resources;
+          };
+        };
+        resources = mkOption {
+          description = serviceRef "deploy.resources";
+          _out = mkOption {
+            internal = true;
+            default = {
+              inherit (config) reservations;
+            };
+          };
+          reservations = mkOption {
+            description = serviceRef "deploy.resources.reservations";
+            _out = mkOption {
+              internal = true;
+              default = {
+                inherit (config) devices;
+              };
+            };
+            devices = mkOption {
+              type = nullOr (listOf str);
+              default = null;
+              example = [ "driver: nvidia" "count: 1" "capabilities: [gpu]" ];
+              description = serviceRef "devices";
+            };
+          };
+        };
+      });
+    };
     service.healthcheck = mkOption {
       description = serviceRef "healthcheck";
       type = submodule ({ config, options, ...}: {
