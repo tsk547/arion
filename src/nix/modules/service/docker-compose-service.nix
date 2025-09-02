@@ -66,6 +66,22 @@ in
         https://docs.docker.com/compose/compose-file/build/#context
       '';
     };
+    service.build.dockerfile = mkOption {
+      type = nullOr str;
+      default = null;
+      description = ''
+        Sets an alternate Dockerfile. A relative path is resolved from the build context.
+        https://docs.docker.com/compose/compose-file/build/#dockerfile
+      '';
+    };
+    service.build.target = mkOption {
+      type = nullOr str;
+      default = null;
+      description = ''
+        Defines the stage to build as defined inside a multi-stage Dockerfile.
+        https://docs.docker.com/compose/compose-file/build/#target
+      '';
+    };
     service.hostname = mkOption {
       type = nullOr str;
       default = null;
